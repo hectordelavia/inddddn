@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Príncipe e o Mendigo — Mark Twain</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Georgia, 'Times New Roman', serif; }
+        html { overflow: hidden; }
+        body { width: 100vw; height: 100vh; overflow: hidden; background: #2b1f14; color: #fff; }
+
+        .container { display: flex; width: 800%; height: 100vh; transition: transform 0.7s ease; }
+        .slide {
+            width: 100vw; height: 100vh; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            padding: 2rem; position: relative;
+        }
+        .bg {
+            position: absolute; inset: 0; background-size: cover; background-position: center;
+            filter: brightness(0.35); z-index: 0;
+        }
+
+        /* PÁGINA 1 — A IMAGEM QUE VOCÊ MANDOU */
+        .s1 .bg {
+            background-image: url("https://photos.enjoei.com.br/livro-o-principe-e-o-mendigo-mark-twain-106749368/800x800/czM6Ly9waG90b3MuZW5qb2VpLmNvbS5ici9wcm9kdWN0cy8zNTQyMzE5Ny9mM2M3M2UyMjdkZDBlZjViYmJkYzNiNTE2NzUwYjQ1Ny5qcGc");
+        }
+        .s2 .bg { background: linear-gradient(135deg, #1a2c42, #2c4260); }
+        .s3 .bg { background: linear-gradient(135deg, #4a3828, #705840); }
+        .s4 .bg { background: linear-gradient(135deg, #204030, #3a6050); }
+        .s5 .bg { background: linear-gradient(135deg, #5a3820, #8a6030); }
+        .s6 .bg { background: linear-gradient(135deg, #3a2a50, #6a5080); }
+        .s7 .bg { background: linear-gradient(135deg, #203050, #406090); }
+        .s8 .bg { background: linear-gradient(135deg, #2b1f14, #4a3828); }
+
+        .conteudo {
+            position: relative; z-index: 1; max-width: 900px; width: 100%;
+            background: rgba(0,0,0,0.55); padding: 2.5rem; border-radius: 16px;
+            border: 2px solid rgba(212,175,55,0.3);
+            animation: aparece 0.8s forwards; opacity: 0; transform: translateY(20px);
+        }
+        @keyframes aparece { to { opacity:1; transform: translateY(0); } }
+
+        h1 { font-size: 2.8rem; color: #ffd700; text-align: center; margin-bottom: 1rem; }
+        h2 { font-size: 1.8rem; color: #ffd700; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255,215,0,0.3); padding-bottom: 0.5rem; }
+        p, li { font-size: 1.1rem; line-height: 1.7; color: #f0e6d2; margin-bottom: 0.6rem; }
+        ul { list-style: none; padding-left: 0; }
+        li::before { content: '✦'; color: #ffd700; margin-right: 0.7rem; }
+        .destaque { font-size: 1.3rem; color: #ffd700; text-align: center; margin: 1.5rem 0; font-style: italic; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        .card { background: rgba(255,215,0,0.08); padding: 1.2rem; border-radius: 10px; border-left: 3px solid #ffd700; }
+
+        /* Navegação */
+        .seta {
+            position: fixed; top: 50%; transform: translateY(-50%);
+            width: 50px; height: 50px; border-radius: 50%; border: none;
+            background: #ffd700; color: #000; font-size: 1.3rem; font-weight: bold;
+            cursor: pointer; z-index: 100;
+        }
+        .seta.esq { left: 1rem; }
+        .seta.dir { right: 1rem; }
+        .seta:hover { transform: translateY(-50%) scale(1.1); }
+
+        .bolinhas {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 0.8rem; z-index: 100;
+        }
+        .bolinha {
+            width: 14px; height: 14px; border-radius: 50%; border: 2px solid #ffd700;
+            background: transparent; cursor: pointer; padding: 0;
+        }
+        .bolinha.ativa { background: #ffd700; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            .conteudo { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<button class="seta esq" id="btnEsq">◀</button>
+<button class="seta dir" id="btnDir">▶</button>
+
+<div class="bolinhas">
+    <button class="bolinha ativa" data-n="0"></button>
+    <button class="bolinha" data-n="1"></button>
+    <button class="bolinha" data-n="2"></button>
+    <button class="bolinha" data-n="3"></button>
+    <button class="bolinha" data-n="4"></button>
+    <button class="bolinha" data-n="5"></button>
+    <button class="bolinha" data-n="6"></button>
+    <button class="bolinha" data-n="7"></button>
+</div>
+
+<div class="container" id="caixa">
+
+    <!-- 1 — CAPA com a sua imagem -->
+    <div class="slide s1">
+        <div class="bg"></div>
+        <div class="conteudo" style="text-align:center;">
+            <h1>👑 O Príncipe e o Mendigo 🧹</h1>
+            <p style="font-size:1.2rem; color:#ffd700;">Mark Twain</p>
+            <p class="destaque">"Não julgues ninguém pelas roupas que veste"</p>
+        </div>
+    </div>
+
+    <!-- 2 — AUTOR -->
+    <div class="slide s2">
+        <div class="bg"></div>
+        <div class="conteudo">
+            <h2>✍️ Sobre o Autor</h2>
+            <ul>
+                <li>Nome verdadeiro: Samuel Langhorne Clemens — conhecido como Mark Twain 🇺🇸</li>
+                <li>Viveu de 1835 a 1910 nos Estados Unidos</li>
+                <li>Trabalhou como piloto de barco, jornalista e tipógrafo</li>
+                <li>Escreveu também: <i>Tom Sawyer</i> e <i>Huckleberry Finn</i> 📚</li>
+                <li>Escrevia com humor e coragem para criticar o que estava errado na sociedade</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 3 — PERSONAGENS -->
+    <div class="slide s3">
+        <div class="bg"></div>
+        <div class="conteudo">
+            <h2>👥 Dois Meninos, a Mesma Cara</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="color:#ffd700; margin-bottom:0.5rem;">👑 Eduardo Tudor</h3>
+                    <p>Príncipe da Inglaterra.</p>
+                    <p>Mora no palácio, tem tudo, mas se sente preso e solitário.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color:#ffd700; margin-bottom:0.5rem;">🧹 Tom Canty</h3>
+                    <p>Menino mendigo.</p>
+                    <p>Mora numa rua pobre, sonha com um mundo melhor.</p>
+                </div>
+            </div>
+            <p class="destaque">✨ São idênticos! Ninguém consegue diferenciá-los! ✨</p>
+        </div>
+    </div>
+
+    <!-- 4 — ENCONTRO E TROCA -->
+    <div class="slide s4">
+        <div class="bg"></div>
+        <div class="conteudo">
+            <h2>🔄 O Encontro e a Troca</h2>
+            <ul>
+                <li>Tom chega perto do palácio e os guardas o empurram.</li>
+                <li>Eduardo o vê, chama para dentro e conversam.</li>
+                <li>Descobrem que são iguais e têm uma ideia: trocar de roupa e de vida!</li>
+                <li>Eduardo sai para a rua e não consegue voltar — a brincadeira vira séria!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 5 — EDUARDO NA RUA -->
+    <div class="slide s5">
+        <div class="bg"></div>
+        <div class="conteudo">
+            <h2>🏙️ Eduardo Descobre o Mundo Real</h2>
+            <ul>
+                <li>Ninguém acredita que ele é príncipe — todos zombam dele.</li>
+                <li>Sente fome, frio e cansaço pela primeira vez.</li>
+                <li>Conhece a família de Tom e vê como o povo sofre.</li>
+                <li>Aprende que nem todo mundo tem comida, casa e respeito.</li>
+                <li class="destaque">💡 O mundo não é feito só de reis e palácios.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 6 — TOM NO TRONO -->
+    <div class="slide s6">
+        <div class="bg"></div>
+        <div class="conteudo">
+            <h2>👑 Tom no Lugar do Príncipe</h2>
+            <ul>
+                <li>No palácio, todos acham que ele enlouqueceu.</li>
+                <li>Tem tudo, mas não é feliz — sente falta da liberdade.</li>
+                <li>Aprende a usar a bondade e começa a pensar nos mais pobres.</li>
+                <li class="destaque">💡 Riqueza não é a mesma coisa que felicidade.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 7 — REENCONTRO E FIM -->
+    <div class="slide s7">
+        <div class="bg"></div>
+        <div class="conteudo">
+            <h2>🤝 De Volta às Suas Vidas</h2>
+            <ul>
+                <li>Depois de muitas aventuras, se reencontram.</li>
+                <li>Eduardo prova que é o verdadeiro príncipe e volta ao trono.</li>
+                <li>Tom volta para a família com dignidade e respeito.</li>
+                <li>Eduardo vira rei e governa com justiça e bondade.</li>
+                <li>Os dois continuam amigos para sempre! 💛</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 8 — LIÇÕES -->
+    <div class="slide s8">
+        <div class="bg"></div>
+        <div class="conteudo" style="text-align:center;">
+            <h2>💎 O que Aprendemos</h2>
+            <ul style="text-align:left; max-width:500px; margin:0 auto;">
+                <li>Não julgue ninguém pelas roupas que veste</li>
+                <li>Conheça a vida do outro antes de criticar</li>
+                <li>Bondade e justiça valem mais que ouro</li>
+                <li>A amizade pode mudar tudo</li>
+            </ul>
+            <p class="destaque">Obrigada pela atenção! 🙌</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let pagina = 0;
+const total = 8;
+const caixa = document.getElementById('caixa');
+const bolinhas = document.querySelectorAll('.bolinha');
+
+function atualizar() {
+    caixa.style.transform = `translateX(-${pagina * 100}vw)`;
+    bolinhas.forEach((b, i) => b.classList.toggle('ativa', i === pagina));
+}
+
+document.getElementById('btnEsq').addEventListener('click', () => {
+    if (pagina > 0) { pagina--; atualizar(); }
+});
+document.getElementById('btnDir').addEventListener('click', () => {
+    if (pagina < total - 1) { pagina++; atualizar(); }
+});
+
+bolinhas.forEach((b, i) => b.addEventListener('click', () => {
+    pagina = i; atualizar();
+}));
+
+// setas do teclado
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft' && pagina > 0) { pagina--; atualizar(); }
+    if (e.key === 'ArrowRight' && pagina < total - 1) { pagina++; atualizar(); }
+});
+</script>
+</body>
+</html>
